@@ -1,0 +1,9 @@
+def kolv_chisl(n):
+    k=0
+    for i in range(1, n):
+        if n%i==0:
+            for j in range(2, min(n,i)+1):
+                if n%j==0 and i%j==0:
+                    k=k+1
+    return k
+print(kolv_chisl(8))
