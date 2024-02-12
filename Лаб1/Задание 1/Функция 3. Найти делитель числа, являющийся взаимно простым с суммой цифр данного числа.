@@ -16,4 +16,4 @@ def delit_prost(n):
         if n % j == 0 and nod(n_sum, j) == 1:
             return j
     return None
-print(delit_prost())
+print(delit_prost(65))
