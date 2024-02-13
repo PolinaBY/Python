@@ -1,0 +1,5 @@
+def name_file(x):
+    a=x.find(".")
+    b=x.rfind('/')
+    return (x[b+1:a])
+print(name_file("С:/gallery/pictures/summer.html"))
