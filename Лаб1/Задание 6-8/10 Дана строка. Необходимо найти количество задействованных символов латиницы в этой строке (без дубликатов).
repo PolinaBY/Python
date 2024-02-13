@@ -1,0 +1,11 @@
+def kol_symb(x):
+    k=0
+    for i in range(0, len(x)):
+        if x[i].islower() == True:
+            k+=1
+            a=x[i]
+            s=x[i+1:len(x)]
+            if a in s:
+                k-=1
+    return k
+print(kol_symb("AbAaAabB"))
