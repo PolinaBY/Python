@@ -1,0 +1,9 @@
+def wight_ASCII(x):
+    wight=0
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    return sr_wight
+def sort_ASCII(s):
+    return sorted(s,key=wight_ASCII)
+print(sort_ASCII(["abc", "xyz", "def", "123"]))
