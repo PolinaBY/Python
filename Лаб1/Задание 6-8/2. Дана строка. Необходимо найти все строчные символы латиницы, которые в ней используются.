@@ -1,0 +1,8 @@
+def strok_symb(x):
+    k=1
+    s=""
+    for i in range(0, len(x)):
+        if x[i].islower()==True:
+            s+=x[i]
+    return s
+print(strok_symb("aBccKl"))
