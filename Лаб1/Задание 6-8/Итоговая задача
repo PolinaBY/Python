@@ -1,0 +1,37 @@
+def strok_symb(x):
+    k=1
+    s=""
+    for i in range(0, len(x)):
+        if x[i].islower()==True:
+            s+=x[i]
+    return s
+
+def kol_symb(x):
+    k=0
+    for i in range(0, len(x)):
+        if x[i].islower() == True:
+            k+=1
+            a=x[i]
+            s=x[i+1:len(x)]
+            if a in s:
+                k-=1
+    return k
+
+def name_file(x):
+    a=x.find(".")
+    b=x.rfind('/')
+    return (x[b+1:a])
+
+print("Выбирете функцию: ")
+print("1. Найти все строчные символы латиницы, которые используются в строке.")
+print("2.Найти количество задействованных символов латиницы в этой строке (без дубликатов)")
+print("3. Найти имя файла без расширения (необходимо ввести путь к файлу)")
+
+n=int(input("Введите номер функции: "))
+match n:
+    case 1:
+        print(strok_symb("aBccKl"))
+    case 2:
+        print(kol_symb("AbAaAabB"))
+    case 3:
+        print(name_file("С:/gallery/pictures/summer.html"))
