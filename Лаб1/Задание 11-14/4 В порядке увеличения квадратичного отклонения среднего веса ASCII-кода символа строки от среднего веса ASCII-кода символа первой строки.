@@ -1,0 +1,22 @@
+def wight1_ASCII(x):
+    wight=0
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    return sr_wight
+def sr_kv_ASCII(x):
+    wight=0
+    dis=0
+    first_wight = wight1_ASCII(x[0])
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    for i in range(0, len(x)):
+        dis+=(ord(x[i])-sr_wight)**2
+    dis=dis/len(x)
+    sr_kv=dis**0.5
+    sort=sr_kv/first_wight
+    return sort
+def sort_ASCII_2(s):
+    return sorted(s,key= sr_kv_ASCII)
+print(sort_ASCII_2(["abc", "def", "xyz", "123"]))
