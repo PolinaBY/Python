@@ -1,0 +1,46 @@
+def voz(x):
+    k=1
+    a=0
+    b=0
+    for i in range(0, len(x)):
+        if x[i].islower()==True:
+            a=x[i]
+            for i in range(i+1, len(x)):
+                if x[i].islower() == True:
+                    b = x[i]
+                    if (a<b):
+                        k=0
+                    else:
+                        k=1
+                        break
+    if k==0:
+        return "Символы строки упорядочены по возрастанию"
+    else:
+        return "Символы не упорядочены по возрастанию"
+
+def kol_a(x):
+    k=0
+    for i in range(0, len(x)):
+        if x[i]=="A":
+           k+=1
+    return k
+
+
+def name_file(x):
+    a=x.find(".")
+    b=x.rfind('/')
+    return (x[b+1:a])
+
+print("Выбирете функцию: ")
+print("1. Проверить, упорядочены ли строчные символы этой строки по возрастанию (строка должна состоять из символов латиницы.")
+print("2. Подсчитать количество букв A в этой строке.")
+print("3. Найти имя файла без расширения (необходимо ввести путь к файлу)")
+
+n=int(input("Введите номер функции: "))
+match n:
+    case 1:
+        print(voz("DabDc"))
+    case 2:
+        print(kol_a("AbAaA"))
+    case 3:
+        print(name_file("С:/gallery/pictures/summer.html"))
