@@ -1,0 +1,7 @@
+def kol_a(x):
+    k=0
+    for i in range(0, len(x)):
+        if x[i]=="A":
+           k+=1
+    return k
+print(kol_a("AbAaA"))
