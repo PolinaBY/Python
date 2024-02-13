@@ -1,0 +1,20 @@
+def voz(x):
+    k=1
+    a=0
+    b=0
+    for i in range(0, len(x)):
+        if x[i].islower()==True:
+            a=x[i]
+            for i in range(i+1, len(x)):
+                if x[i].islower() == True:
+                    b = x[i]
+                    if (a<b):
+                        k=0
+                    else:
+                        k=1
+                        break
+    if k==0:
+        return "Символы строки упорядочены по возрастанию"
+    else:
+        return "Символы не упорядочены по возрастанию"
+print(voz("DabDc"))
