@@ -1,0 +1,31 @@
+def max_wight1_ASCII(x):
+    wight=0
+    k=0
+    max_wight1=0
+    for i in range(0, len(x)):
+        while k<3:
+            for j in range(i, len(x)):
+                wight += ord (x[j])
+            sr_wight=wight/len(x)
+            if sr_wight>max_wight1:
+                max_wight1=sr_wight
+            k+=1
+    return max_wight1
+def sr_max_ASCII(x):
+    wight = 0
+    k = 0
+    max_wight=0
+    max_first_wight = max_wight1_ASCII(x)
+    for i in range(0, len(x)):
+        while k < 3:
+            for j in range(i, len(x)):
+                wight += ord(x[j])
+            sr_wight = wight / len(x)
+            if sr_wight > max_wight:
+                max_wight = sr_wight
+            k += 1
+    sort=max_wight/ max_first_wight
+    return sort
+def sort_ASCII_2(s):
+    return sorted(s,key= sr_kv_ASCII)
+print(sort_ASCII(["abbabd", "bav", "xyzamm", "eferuu"]))
