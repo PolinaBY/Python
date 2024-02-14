@@ -7,7 +7,7 @@ def wight1_ASCII(x):
 def sr_kv_ASCII(x):
     wight=0
     dis=0
-    first_wight = wight1_ASCII(x[0])
+    first_wight = wight1_ASCII(x)
     for i in range(0, len(x)):
         wight += ord (x[i])
     sr_wight=wight/len(x)
