@@ -1,0 +1,104 @@
+def wight_ASCII(x):
+    wight=0
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    return sr_wight
+def sort_ASCII(s):
+    return sorted(s,key=wight_ASCII)
+
+
+def wight1_ASCII(x):
+    wight=0
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    return sr_wight
+def sr_kv_ASCII(x):
+    wight=0
+    dis=0
+    first_wight = wight1_ASCII(x)
+    for i in range(0, len(x)):
+        wight += ord (x[i])
+    sr_wight=wight/len(x)
+    for i in range(0, len(x)):
+        dis+=(ord(x[i])-sr_wight)**2
+    dis=dis/len(x)
+    sr_kv=dis**0.5
+    sort=sr_kv/first_wight
+    return sort
+def sort_ASCII_2(s):
+    return sorted(s,key= sr_kv_ASCII)
+
+
+def gl_or_sogl(x):
+        if (x == 'a' or x == 'e' or x == 'i' or
+            x == 'o' or x == 'u' or x == 'A' or
+            x == 'E' or x == 'I' or x == 'O' or
+            x == 'U'):
+            return 1
+        else:
+            return 0
+def raz(x):
+    g_s=0
+    s_g=0
+    for i in range(1, len(x)):
+        a=gl_or_sogl(x[i-1])
+        b=gl_or_sogl(x[i])
+        if a==1 and b==0:
+            g_s+=1
+        if a==0 and b==1:
+            s_g+=1
+    return g_s-s_g
+
+def sort(s):
+    return sorted(s, key=raz)
+
+
+def max_wight1_ASCII(x):
+    wight=0
+    k=0
+    max_wight1=0
+    for i in range(0, len(x)):
+        while k<3:
+            for j in range(i, len(x)):
+                wight += ord (x[j])
+            sr_wight=wight/len(x)
+            if sr_wight>max_wight1:
+                max_wight1=sr_wight
+            k+=1
+    return max_wight1
+def sr_max_ASCII(x):
+    wight = 0
+    k = 0
+    max_wight=0
+    max_first_wight = max_wight1_ASCII(x)
+    for i in range(0, len(x)):
+        while k < 3:
+            for j in range(i, len(x)):
+                wight += ord(x[j])
+            sr_wight = wight / len(x)
+            if sr_wight > max_wight:
+                max_wight = sr_wight
+            k += 1
+    sort=max_wight/ max_first_wight
+    return sort
+def sort_ASCII_2(s):
+    return sorted(s,key= sr_kv_ASCII)
+
+print("Выбирете вид сортировки: ")
+print("1. В порядке увеличения среднего веса ASCII-кода символа строки.")
+print("2. В порядке увеличения квадратичного отклонения среднего веса ASCII-кода символа строки от среднего веса ASCII-кода символа первой строки.")
+print("3. В порядке увеличения разницы между количеством сочетаний «гласная-согласная» и «согласная-гласная» в строке.")
+print("4. В порядке квадратичного отклонения дисперсии максимального среднего веса ASCII-кода тройки символов в строке от максимального среднего веса ASCII-кода тройки символов в первой строке.")
+
+n=int(input("Введите номер функции: "))
+match n:
+    case 1:
+        print(sort_ASCII(["abc", "xyz", "def", "123"]))
+    case 2:
+        print(sort_ASCII_2(["abc", "def", "xyz", "123"]))
+    case 3:
+        print(sort(["abbab", "ba", "xyza", "efer"]))
+    case 4:
+        print(sort_ASCII(["abbabd", "bav", "xyzamm", "eferuu"]))
