@@ -1,0 +1,8 @@
+def min_index(mas):
+    min_el = mas[0]
+    for i in range(0, len(mas)):
+        if mas[i] < min_el:
+            min_el = mas[i]
+    return mas.index(min_el)
+mas=[10, 20, 30, 1, 2, 3]
+print(min_index(mas))
