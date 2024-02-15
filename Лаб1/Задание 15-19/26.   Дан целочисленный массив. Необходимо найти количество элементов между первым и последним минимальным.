@@ -1,0 +1,17 @@
+def kol_between_min(mas):
+    min1=min2=mas[0]
+    k=0
+    for i in mas:
+        if i<min1:
+            min1,min2=i,min1
+        elif i<min2:
+            min2=i
+    if mas.index(min1)<mas.index(min2):
+        for i in range(mas.index(min1), mas.index(min2)):
+            k += 1
+    else:
+        for i in range(mas.index(min2), mas.index(min1)):
+            k += 1
+    return k
+  mas = [6, 5, 10, 12, 7, 1, 20]
+  print(kol_between_min(mas))
