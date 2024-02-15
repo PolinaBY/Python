@@ -1,0 +1,8 @@
+def kol_in_mas(mas, a,b):
+    k=0
+    for i in range(0, len(mas)):
+        if mas[i] in range(a,b):
+            k+=1
+    return k
+mas = [6, 5, 10, 12, 7, 1, 20]
+print(kol_in_mas(mas,1,10))
