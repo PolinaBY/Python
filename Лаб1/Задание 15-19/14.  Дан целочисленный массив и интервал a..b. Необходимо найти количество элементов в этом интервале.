@@ -1,0 +1,8 @@
+def kol_a_of_b(mas, a, b):
+    k=0
+    for i in mas:
+        if a<i<b:
+            k+=1
+    return k
+mas = [1, 3, 5, 7, 9, 11, 13, 15]
+print(kol_a_of_b(mas,5,12))
