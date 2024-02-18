@@ -1,0 +1,14 @@
+dictionary1 = {}
+dictionary2 = {}
+n = int(input("Введите длину словаря: "))
+for i in range(0,n):
+    word, synonym = input("Введите слово и его синоним в словарь: ").split()
+    dictionary1[word] = synonym
+    dictionary2[synonym] = word
+word = input("Введите слово, к которому хотите найти синоним: ")
+found_synonym1 = (dictionary1.get(word))
+found_synonym2 = (dictionary2.get(word))
+if found_synonym1:
+    print(found_synonym1)
+else:
+    print(found_synonym2)
