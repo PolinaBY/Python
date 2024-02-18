@@ -1,0 +1,12 @@
+def count_words(string):
+    return len(string.split())
+def sort_by_word(strings):
+    return sorted(strings, key=count_words)
+
+n = int(input("Введите количество строк: "))
+input_strings = []
+for i in range(n):
+    input_strings.append(input("Введите строку: ".format(i + 1)))
+sorted_strings = sort_by_word(input_strings)
+for string in sorted_strings:
+    print(string)
