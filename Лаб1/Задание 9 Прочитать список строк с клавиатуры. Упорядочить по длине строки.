@@ -1,0 +1,9 @@
+def sort_by_length(strings):
+    return sorted(strings, key=len)
+n = int(input("Введите количество строк: "))
+input_strings = []
+for i in range(n):
+    input_strings.append(input("Введите строку: ".format(i + 1)))
+sorted_strings = sort_by_length(input_strings)
+for string in sorted_strings:
+    print(string)
