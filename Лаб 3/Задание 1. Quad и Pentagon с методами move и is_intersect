@@ -1,0 +1,52 @@
+Написать программу, демонстрирующую работу с объектами
+двух типов T1 и T2, для чего создать систему соответствующих классов.
+Каждый объект должен иметь идентификатор (в виде произвольной строки
+символов) и одно или несколько полей для хранения состояния (текущего
+значения) объекта.
+
+
+class Figure:
+    def __init__(self, identifier, x=0, y=0):
+        self.identifier = identifier
+        self.x = x
+        self.y = y
+
+    def move(self, new_x, new_y):
+        self.x = new_x
+        self.y = new_y
+
+class Quad(Figure):
+    def __init__(self, identifier, side, x=0, y=0):
+        super().__init__(identifier, x, y)
+        self.side = side
+
+    def S(self):
+        return self.side ** 2
+
+    def is_intersect(self, other):
+        return abs(self.x - other.x) < (self.side + other.side)/2 and abs(self.y - other.y) < (self.side + other.side)/2
+
+class Pentagon(Figure):
+    def __init__(self, identifier, side, x=0, y=0):
+        super().__init__ (identifier, x, y)
+        self.side = side
+
+    def S(self):
+        import math
+        return 0.25 * math.sqrt(5 * (5 + 2 * math.sqrt(5))) * self.side ** 2
+
+    def is_intersect(self, other):
+        import math
+        dist = math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
+        return dist < self.side + other.side
+
+
+quad = Quad("Quad", 5)
+quad.move(1, 3)
+print("Координаты квадрата 1:", quad.x, quad.y)
+
+pentagon = Pentagon("Pentagon", 5)
+pentagon.move(4, 4)
+print("Координаты пятиугольника 1:", pentagon.x, pentagon.y)
+
+print("Пересекаются ли объекты квадрат и пятиугольник:", quad.is_intersect(pentagon))
