@@ -1,0 +1,21 @@
+def count_pairs(kol_kand, sum_rang, mas):
+    kol_pair = 0
+    for i in range(kol_kand):
+        left = i + 1
+        right = kol_kand - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if mas[i] + mas[mid] >= sum_rang:
+                right = mid - 1
+            else:
+                left = mid + 1
+        kol_pair += kol_kand - left
+    return kol_pair
+
+with open("27-169bb.txt") as file:
+    kol_kand_str, sum_rang_str = next(file).split()
+    kol_kand = int(kol_kand_str)
+    sum_rang = int(sum_rang_str)
+    mas = [int(row.strip()) for row in file]
+result = count_pairs(kol_kand, sum_rang, mas)
+print(result)
