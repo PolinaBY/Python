@@ -12,7 +12,7 @@ def count_pairs(kol_kand, sum_rang, mas):
         kol_pair += kol_kand - left
     return kol_pair
 
-with open("27-169bb.txt") as file:
+with open("27-169b.txt") as file:
     kol_kand_str, sum_rang_str = next(file).split()
     kol_kand = int(kol_kand_str)
     sum_rang = int(sum_rang_str)
