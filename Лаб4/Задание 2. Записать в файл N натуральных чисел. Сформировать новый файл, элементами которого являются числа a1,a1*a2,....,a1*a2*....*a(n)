@@ -1,0 +1,14 @@
+import random
+n=10
+numbers=[random.randint(1,100) for i in range(n)]
+new_nambers=[i for i in range (n)]
+with open("ex.txt","w") as file:
+    for i in range(n):
+        file.write(str(numbers[i])+"\n")
+with open("ex.txt","r") as file:
+    with open("answ.txt","w") as new_file:
+        new_nambers[0]=numbers[0]
+        for i in range(1,n):
+            new_nambers[i]=numbers[i]*new_nambers[i-1]
+        new_file.write(str(new_nambers)+"\n")
+print('end')
