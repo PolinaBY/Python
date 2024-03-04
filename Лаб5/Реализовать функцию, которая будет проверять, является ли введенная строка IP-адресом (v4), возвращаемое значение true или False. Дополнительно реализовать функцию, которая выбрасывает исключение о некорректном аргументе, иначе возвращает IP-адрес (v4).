@@ -4,14 +4,19 @@ def is_ipv4(ip):
     return bool(re.match(pattern, ip))
 
 def iden_ipv4(ip):
-    if not is_ipv4(ip):
-        return "Некорректный IP-адрес IPv4"
-    return ip
+    if is_ipv4(ip):
+        return ip
+    else:
+        raise ValueError("Некорректный IP-адрес IPv4")
 
 ip1 = "192.168.1.1"
 ip2 = "256.1.1.1"
 
 print(is_ipv4(ip1))
 print(is_ipv4(ip2))
-print(iden_ipv4(ip1))
-print(iden_ipv4(ip2))
+
+try:
+    print(iden_ipv4(ip1))
+    print(iden_ipv4(ip2))
+except ValueError as e:
+    print (f"Ошибка: {e}")
