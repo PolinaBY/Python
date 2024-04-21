@@ -1,0 +1,9 @@
+import json
+import sqlite3
+import http.server
+import socketserver
+import cgi
+
+
+def database_and_server():
+    insurance_company = sqlite3.connect('./cgi-bin/insurance-company2.db')
