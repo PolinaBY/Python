@@ -1,9 +1,11 @@
-    class MyHandler(http.server.BaseHTTPRequestHandler):
-        def do_POST(self):
-            # Получение данных из формы
-            form = cgi.FieldStorage(
-                fp=self.rfile,
-                headers=self.headers,
-                environ={'REQUEST_METHOD': 'POST', 'CONTENT_TYPE': self.headers['Content-Type'],
-                         }
-            )
+     PORT = 8000
+    httpd = socketserver.TCPServer(("", PORT), MyHandler)
+    httpd.serve_forever()
+
+    insurance_company.commit()
+    cursor.close()
+
+    insurance_company.close()
+
+
+database_and_server()
