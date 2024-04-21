@@ -1,0 +1,24 @@
+ if 'addclient' in form:
+                first_names = form.getvalue('first_name')
+                last_names = form.getvalue('last_name')
+                genders = form.getvalue('gender')
+                Alias = form.getvalue('alias')
+                Groupp = form.getvalue('Groupi')
+                Phone = form.getvalue('phone')
+                cursor.execute("INSERT INTO Artists (First_Name, Last_Name, Gender,Alias,Groupi,Phone) VALUES (?, ?, ?, ?, ?, ?)",
+                               (first_names, last_names, genders, Alias, Groupp, Phone))
+            elif 'addpolicy' in form:
+                Title = form.getvalue('Title')
+                Performer = form.getvalue('Performer')
+                Date_release = form.getvalue('Date_release')
+                Artist = form.getvalue('Artist_ID')
+                cursor.execute("INSERT INTO Songs (Title, Performer, Date_release, Artist_ID) VALUES (?, ?, ?, ?)",
+                               (Title, Performer, Date_release, Artist))
+            elif 'addclaim' in form:
+                Name_group = form.getvalue('Name_group')
+                Date_foundation = form.getvalue('Date_foundation')
+                Namber_artist = form.getvalue('Namber_artist')
+                Member = form.getvalue('Artist_ID')
+                cursor.execute("INSERT INTO Groups (Name_group , Date_foundation , Namber_artist , Artist_ID ) VALUES (?, ?, ?, ?)",
+                               (Name_group, Date_foundation, Namber_artist,  Member))
+            insurance_company.commit()
