@@ -1,0 +1,314 @@
+
+
+# Лабораторная работа №6.
+
+# Задание 1. Вариант 2. Создать БД в соответствии с предметной областью: музыка.
+import json
+import sqlite3
+import http.server
+import socketserver
+import cgi
+
+
+def database_and_server():
+    insurance_company = sqlite3.connect('./cgi-bin/insurance-company2.db')
+    # Эадание 2. БД должна содержать не менее трех связанных таблиц.
+    cursor = insurance_company.cursor()
+    cursor.execute("DROP TABLE Artists")
+    cursor.execute("DROP TABLE Songs")
+    cursor.execute("DROP TABLE Groups")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Artists (
+    Artist_ID INTEGER PRIMARY KEY,
+    First_Name VARCHAR2(50),
+    Last_Name VARCHAR2(50),
+    Gender VARCHAR2(10),
+    Alias VARCHAR2(20),
+    Groupi VARCHAR2(20),
+    Phone VARCHAR2(20)
+    )""")
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Songs  (
+    Song_ID INTEGER PRIMARY KEY,
+    Title VARCHAR2(100),
+    Performer VARCHAR2(500),
+    Date_release VARCHAR2(50),
+    Artist_ID INTEGER NOT NULL,
+    FOREIGN KEY (Artist_ID) REFERENCES Artists(Artist_ID)
+    )""")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Groups (
+    Group_ID INTEGER PRIMARY KEY,
+    Name_group VARCHAR2(50),
+    Date_foundation VARCHAR2(50),
+    Namber_artist NUMBER,
+    Artist_ID INTEGER NOT NULL,
+    FOREIGN KEY (Artist_ID) REFERENCES Artists(Artist_ID)
+    )""")
+
+
+    # Задание 3. Заполнить таблицы БД информацией с помощью SQL- запросов.
+
+
+    cursor.execute("""INSERT INTO Songs (Song_ID, Title, Performer, Date_release,Artist_ID) VALUES
+    (1,'Croshka_moya','Ruki_Vverh','25.07.1998',2),
+    (2,'Devohka_tancyi','Artik_Asti','07.02.2020',3),
+    (3,'Beregu','Egor_Creed','23.05.2015',1)""")
+
+    cursor.execute("""INSERT INTO Artists (Artist_ID, First_Name, Last_Name, Gender, Alias, Groupi, Phone) VALUES
+    (1, 'Egor', 'Bulatkin', 'M', 'Egor_Creed', '', '+79186212661'),
+    (2, 'Sergey', 'Jukov', 'M', '', 'Ruki_Vverh', '+79183222332'),
+    (3, 'Anna', 'Asti', 'W', 'Anna_Asti', 'Artik_Asti', '+79423441232')""")
+
+
+    cursor.execute("""INSERT INTO Groups (Group_ID, Name_group, Date_foundation,Namber_artist,Artist_ID) VALUES
+    (1,'Ruki_Vverh','01.05.1995',2,2),
+    (2,'Artik_Asti','25.03.2010',2,3)""")
+
+
+    # Задание 4. Написать не менее трех статистических запросов (SELECT).
+
+    cl = cursor.execute('SELECT * FROM Artists')
+    for cl1 in cl:
+        print(cl1)
+
+    print()
+    pl = cursor.execute('SELECT First_Name FROM Artists where Groupi not NULL order by First_Name')
+    for pl1 in pl:
+        print(pl1)
+    print()
+    clim = cursor.execute('SELECT Title FROM Songs where Performer!="Egor_Creed" order by Title')
+    for cl1 in clim:
+        print(cl1)
+
+    class MyHandler(http.server.BaseHTTPRequestHandler):
+        def do_POST(self):
+            # Получение данных из формы
+            form = cgi.FieldStorage(
+                fp=self.rfile,
+                headers=self.headers,
+                environ={'REQUEST_METHOD': 'POST', 'CONTENT_TYPE': self.headers['Content-Type'],
+                         }
+            )
+            if 'addclient' in form:
+                first_names = form.getvalue('first_name')
+                last_names = form.getvalue('last_name')
+                genders = form.getvalue('gender')
+                Alias = form.getvalue('alias')
+                Groupp = form.getvalue('Groupi')
+                Phone = form.getvalue('phone')
+                cursor.execute("INSERT INTO Artists (First_Name, Last_Name, Gender,Alias,Groupi,Phone) VALUES (?, ?, ?, ?, ?, ?)",
+                               (first_names, last_names, genders, Alias, Groupp, Phone))
+            elif 'addpolicy' in form:
+                Title = form.getvalue('Title')
+                Performer = form.getvalue('Performer')
+                Date_release = form.getvalue('Date_release')
+                Artist = form.getvalue('Artist_ID')
+                cursor.execute("INSERT INTO Songs (Title, Performer, Date_release, Artist_ID) VALUES (?, ?, ?, ?)",
+                               (Title, Performer, Date_release, Artist))
+            elif 'addclaim' in form:
+                Name_group = form.getvalue('Name_group')
+                Date_foundation = form.getvalue('Date_foundation')
+                Namber_artist = form.getvalue('Namber_artist')
+                Member = form.getvalue('Artist_ID')
+                cursor.execute("INSERT INTO Groups (Name_group , Date_foundation , Namber_artist , Artist_ID ) VALUES (?, ?, ?, ?)",
+                               (Name_group, Date_foundation, Namber_artist,  Member))
+            insurance_company.commit()
+            # Задание 8. Экспорт/импорт таблицы в JSON
+            if 'addclient' in form:
+                cursor.execute('SELECT * FROM Artists')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Artists.json', 'w') as f:
+                    f.write(table_out)
+                with open('Artists.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            elif 'addpolicy' in form:
+                cursor.execute('SELECT * FROM Songs ')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Songs.json', 'w') as f:
+                    f.write(table_out)
+                with open('Songs.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            elif 'addclaim' in form:
+                cursor.execute('SELECT * FROM Groups')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Groups.json', 'w') as f:
+                    f.write(table_out)
+                with open('Groups.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            self.send_response(303)
+            self.send_header('location', '/')
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            # Задание 6. Создать форму (формы) для заполнения полей таблиц.
+            # Задание 7. Осуществить вывод содержимого таблиц.
+            html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>insurance company</title>
+            </head>
+            <body>
+              <h1>Artists</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>first_name</th>
+                    <th>last_name</th>
+                    <th>gender</th>
+                    <th>alias</th>
+                    <th>Groupi</th>
+                    <th>Phone</th>
+                  </tr>
+                </thead>
+            <tbody>
+
+            """
+            html += """
+        <form method="POST" action="">
+              <label for="first_name">first_name:</label>
+              <input type="text" name="first_name">
+              <br>
+              <label for="last_name">last_name:</label>
+              <input type="text" name="last_name">
+              <br>
+               <label for="gender">gender:</label>
+              <input type="text" name="gender">
+              <br>
+              <label for="alias">alias :</label>
+              <input type="text" name="alias">
+              <br>
+              <label for="Groupi">Groupi:</label>
+              <input type="text" name="Groupi">
+              <br>
+              <label for="phone">Phone :</label>
+              <input type="number" name="phone">
+              <br>
+               <label for "addclient"</label>
+              <input type="submit" name="addclient" value="add_client">
+            </form>
+                    """
+            for row in cursor.execute('SELECT * FROM Artists'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+              <h1>Songs</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Performer</th>
+                    <th>Date_release</th>
+                    <th>Artist_ID </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                <form method="POST" action="">
+      <label for="<form method="POST" action="">
+      <label for="Title">Title:</label>
+      <input type="text" name="Title">
+      <br>
+      <label for="Performer">Performer:</label>
+      <input type="text" name="Performer">
+      <br>
+        <label for="Date_release">Date_release:</label>
+      <input type="date" name="Date_release">
+      <br>
+      <label for="Artist_ID">Artist_ID:</label>
+      <input type=namber" name="Artist_ID">
+      <br>
+      <label for "addpolicy"</label>
+      <input type="submit" name="addpolicy" value="add_policy">
+    </form>
+                        """
+            for row in cursor.execute('SELECT * FROM Songs'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+              <h1>Groups </h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name_group</th>
+                    <th>Date_foundation</th>
+                    <th>Namber_artist</th>
+                    <th>Artist_id</th>
+                  </tr>
+                </thead>
+                <tbody>
+    <form method="POST" action="">
+      <label for="Name_group">Name_group:</label>
+      <input type="text" name="Name_group">
+      <br>
+      <label for="Date_foundation">Date_foundation:</label>
+      <input type="date" name="Date_foundation">
+      <br>
+           <label for="Namber_artist">Namber_artist:</label>
+      <input type="number" name="Namber_artist">
+       <br>
+      <label for="Artist_ID">Artist_id:</label>
+      <input type="number" name="Artist_ID">
+      <br>
+      <label for "addclaim"</label>
+      <input type="submit" name="addclaim" value="add_claim">
+    </form>
+            """
+            for row in cursor.execute('SELECT * FROM Groups'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+            """
+
+            html += """
+                   </body>
+            </html>
+            """
+
+            self.wfile.write(html.encode('utf-8'))
+
+    # Задание 5. Создать CGI-сервер.
+    PORT = 8000
+    httpd = socketserver.TCPServer(("", PORT), MyHandler)
+    httpd.serve_forever()
+
+    insurance_company.commit()
+    cursor.close()
+
+    insurance_company.close()
+
+
+database_and_server()
