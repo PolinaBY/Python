@@ -1,0 +1,48 @@
+            if 'addclient' in form:
+                cursor.execute('SELECT * FROM Artists')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Artists.json', 'w') as f:
+                    f.write(table_out)
+                with open('Artists.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            elif 'addpolicy' in form:
+                cursor.execute('SELECT * FROM Songs ')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Songs.json', 'w') as f:
+                    f.write(table_out)
+                with open('Songs.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            elif 'addclaim' in form:
+                cursor.execute('SELECT * FROM Groups')
+                table_out = json.dumps(cursor.fetchall())
+
+                with open('Groups.json', 'w') as f:
+                    f.write(table_out)
+                with open('Groups.json', 'r') as f:
+                    json_data = f.read()
+
+                table_in = json.loads(json_data)
+
+                for st in table_in:
+                    print(st)
+            self.send_response(303)
+            self.send_header('location', '/')
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
