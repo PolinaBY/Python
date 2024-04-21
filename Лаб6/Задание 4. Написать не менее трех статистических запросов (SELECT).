@@ -1,0 +1,12 @@
+cl = cursor.execute('SELECT * FROM Artists')
+    for cl1 in cl:
+        print(cl1)
+
+    print()
+    pl = cursor.execute('SELECT First_Name FROM Artists where Groupi not NULL order by First_Name')
+    for pl1 in pl:
+        print(pl1)
+    print()
+    clim = cursor.execute('SELECT Title FROM Songs where Performer!="Egor_Creed" order by Title')
+    for cl1 in clim:
+        print(cl1)
