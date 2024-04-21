@@ -1,0 +1,14 @@
+cursor.execute("""INSERT INTO Songs (Song_ID, Title, Performer, Date_release,Artist_ID) VALUES
+    (1,'Croshka_moya','Ruki_Vverh','25.07.1998',2),
+    (2,'Devohka_tancyi','Artik_Asti','07.02.2020',3),
+    (3,'Beregu','Egor_Creed','23.05.2015',1)""")
+
+    cursor.execute("""INSERT INTO Artists (Artist_ID, First_Name, Last_Name, Gender, Alias, Groupi, Phone) VALUES
+    (1, 'Egor', 'Bulatkin', 'M', 'Egor_Creed', '', '+79186212661'),
+    (2, 'Sergey', 'Jukov', 'M', '', 'Ruki_Vverh', '+79183222332'),
+    (3, 'Anna', 'Asti', 'W', 'Anna_Asti', 'Artik_Asti', '+79423441232')""")
+
+
+    cursor.execute("""INSERT INTO Groups (Group_ID, Name_group, Date_foundation,Namber_artist,Artist_ID) VALUES
+    (1,'Ruki_Vverh','01.05.1995',2,2),
+    (2,'Artik_Asti','25.03.2010',2,3)""")
