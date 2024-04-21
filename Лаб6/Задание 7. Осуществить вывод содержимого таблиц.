@@ -1,0 +1,135 @@
+html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>insurance company</title>
+            </head>
+            <body>
+              <h1>Artists</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>first_name</th>
+                    <th>last_name</th>
+                    <th>gender</th>
+                    <th>alias</th>
+                    <th>Groupi</th>
+                    <th>Phone</th>
+                  </tr>
+                </thead>
+            <tbody>
+
+            """
+            html += """
+        <form method="POST" action="">
+              <label for="first_name">first_name:</label>
+              <input type="text" name="first_name">
+              <br>
+              <label for="last_name">last_name:</label>
+              <input type="text" name="last_name">
+              <br>
+               <label for="gender">gender:</label>
+              <input type="text" name="gender">
+              <br>
+              <label for="alias">alias :</label>
+              <input type="text" name="alias">
+              <br>
+              <label for="Groupi">Groupi:</label>
+              <input type="text" name="Groupi">
+              <br>
+              <label for="phone">Phone :</label>
+              <input type="number" name="phone">
+              <br>
+               <label for "addclient"</label>
+              <input type="submit" name="addclient" value="add_client">
+            </form>
+                    """
+            for row in cursor.execute('SELECT * FROM Artists'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+              <h1>Songs</h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Performer</th>
+                    <th>Date_release</th>
+                    <th>Artist_ID </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                <form method="POST" action="">
+      <label for="<form method="POST" action="">
+      <label for="Title">Title:</label>
+      <input type="text" name="Title">
+      <br>
+      <label for="Performer">Performer:</label>
+      <input type="text" name="Performer">
+      <br>
+        <label for="Date_release">Date_release:</label>
+      <input type="date" name="Date_release">
+      <br>
+      <label for="Artist_ID">Artist_ID:</label>
+      <input type=namber" name="Artist_ID">
+      <br>
+      <label for "addpolicy"</label>
+      <input type="submit" name="addpolicy" value="add_policy">
+    </form>
+                        """
+            for row in cursor.execute('SELECT * FROM Songs'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+              <h1>Groups </h1>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name_group</th>
+                    <th>Date_foundation</th>
+                    <th>Namber_artist</th>
+                    <th>Artist_id</th>
+                  </tr>
+                </thead>
+                <tbody>
+    <form method="POST" action="">
+      <label for="Name_group">Name_group:</label>
+      <input type="text" name="Name_group">
+      <br>
+      <label for="Date_foundation">Date_foundation:</label>
+      <input type="date" name="Date_foundation">
+      <br>
+           <label for="Namber_artist">Namber_artist:</label>
+      <input type="number" name="Namber_artist">
+       <br>
+      <label for="Artist_ID">Artist_id:</label>
+      <input type="number" name="Artist_ID">
+      <br>
+      <label for "addclaim"</label>
+      <input type="submit" name="addclaim" value="add_claim">
+    </form>
+            """
+            for row in cursor.execute('SELECT * FROM Groups'):
+                html += "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(*row)
+
+            html += """
+                </tbody>
+              </table>
+
+            """
+
+            html += """
+                   </body>
+            </html>
+            """
+
+            self.wfile.write(html.encode('utf-8'))
