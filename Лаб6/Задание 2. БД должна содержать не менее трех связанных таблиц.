@@ -1,0 +1,31 @@
+cursor = insurance_company.cursor()
+    cursor.execute("DROP TABLE Artists")
+    cursor.execute("DROP TABLE Songs")
+    cursor.execute("DROP TABLE Groups")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Artists (
+    Artist_ID INTEGER PRIMARY KEY,
+    First_Name VARCHAR2(50),
+    Last_Name VARCHAR2(50),
+    Gender VARCHAR2(10),
+    Alias VARCHAR2(20),
+    Groupi VARCHAR2(20),
+    Phone VARCHAR2(20)
+    )""")
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Songs  (
+    Song_ID INTEGER PRIMARY KEY,
+    Title VARCHAR2(100),
+    Performer VARCHAR2(500),
+    Date_release VARCHAR2(50),
+    Artist_ID INTEGER NOT NULL,
+    FOREIGN KEY (Artist_ID) REFERENCES Artists(Artist_ID)
+    )""")
+
+    cursor.execute("""CREATE TABLE IF NOT EXISTS Groups (
+    Group_ID INTEGER PRIMARY KEY,
+    Name_group VARCHAR2(50),
+    Date_foundation VARCHAR2(50),
+    Namber_artist NUMBER,
+    Artist_ID INTEGER NOT NULL,
+    FOREIGN KEY (Artist_ID) REFERENCES Artists(Artist_ID)
+    )""")
